@@ -12,10 +12,10 @@ let opcion;
 
 do {
     opcion = prompt(`SISTEMA INNOVA ESPE 2026 
-     1. Comprar entradas
-     2. Consultar cupos disponibles
-     3. Consultar ingresos acumulados
-     4. Salir
+    1. Comprar entradas
+    2. Consultar cupos disponibles
+    3. Consultar ingresos acumulados
+    4. Salir y mostar el resumen final 
      Seleccione una opcion:`
     );
 
@@ -25,13 +25,13 @@ do {
         comprarEntradas();
         break;
       case "2":
-        alert("Cupos disponibles");
+        consultarCupos();
         break;
       case "3":
-        alert("Ingresos totales");
+        consultarIngresos();
         break;
       case "4":
-        alert("Saliendo");
+        mostrarResumenFinal();
         break;
       default:
         alert("Opcion invalida. Intente nuevamente.");
@@ -54,9 +54,9 @@ function comprarEntradas() {
 
   const tipoIngresado = Number(prompt(
     `Ingrese el tipo de participante 
-    1. Estudiante 
-    2. docente 
-    3. publico general
+1. Estudiante 
+2. docente 
+3. publico general
     Ingrese una opcion:`));
   const descuentoPorcentaje = obtenerDescuento(tipoIngresado);
 
@@ -86,8 +86,8 @@ function comprarEntradas() {
   ingresosAcumulados += total;
   comprasRealizadas += 1;
 
-  const nombreTipo =descuentoPorcentaje === desEstudiante? 
-      "Estudiante": descuentoPorcentaje === desDocente? "Docente": "Público general";
+  const nombreTipo = descuentoPorcentaje === desEstudiante ?
+      "Estudiante" : descuentoPorcentaje === desDocente ? "Docente" : "Publico general";
 
   alert(`RESUMEN DE LA COMPRA
     Nombre: ${nombre}
@@ -97,5 +97,50 @@ function comprarEntradas() {
     Descuento es del ${(descuentoPorcentaje * 100)} %: ${descuento} $
     Total a pagar: $${total} $
     Compra realizada exitosamente`);
+  console.log(`RESUMEN DE LA COMPRA
+    Nombre: ${nombre}
+    Tipo de participante: ${nombreTipo}
+    Cantidad de entradas: ${cantidad}
+    Subtotal: ${subtotal} $
+    Descuento es del ${(descuentoPorcentaje * 100)} %: ${descuento} $
+    Total a pagar: $${total} $
+    Compra realizada exitosamente`);
+}
 
+function consultarCupos() {
+  let estado;
+  if (cuposDisponibles > 10) {
+    estado = "Cupos disponibles";
+  } else if (cuposDisponibles >= 1 && cuposDisponibles <= 10) {
+    estado = "Ultimos cupos disponibles";
+  } else {
+    estado = "Evento agotado";
+  }
+
+  alert(`CUPOS DISPONIBLES
+    Cupos restantes: ${cuposDisponibles}
+    Estado: ${estado}`);
+  console.log(`Cupos disponibles: ${cuposDisponibles} - ${estado}`);
+}
+
+function consultarIngresos() {
+  alert(`INGRESOS ACTUALES
+    Total de entradas vendidas: ${entradasVendidas}
+    Total de ingresos acumulados: ${ingresosAcumulados} $
+    Numero de compras realizadas: ${comprasRealizadas}`);
+  console.log(`Entradas vendidas: ${entradasVendidas} | Ingresos: ${ingresosAcumulados} | Compras: ${comprasRealizadas}`);
+}
+
+function mostrarResumenFinal() {
+  alert(`RESUMEN FINAL DEL SISTEMA
+    Compras realizadas: ${comprasRealizadas}
+    Total de entradas vendidas: ${entradasVendidas}
+    Total de ingresos acumulados: ${ingresosAcumulados} $
+    Cupos restantes: ${cuposDisponibles}
+    Saliendo del sistema...`);
+  console.log(`Resumen final
+     Compras: ${comprasRealizadas}
+     Entradas: ${entradasVendidas}
+     Ingresos: ${ingresosAcumulados}
+     Cupos: ${cuposDisponibles}`);
 }
